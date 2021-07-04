@@ -32,7 +32,6 @@ public class EmployeeResource {
     Properties props;
     private final AbstractEmployeeService employeeService;
     private final AbstractKakfaService<Employee> employeeKafkaService;
-    private final ObjectMapper mapper = new ObjectMapper();
     private void initialize() throws IOException {
         inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
         props = new Properties();
@@ -126,19 +125,46 @@ public class EmployeeResource {
             @ApiResponse(code = 405, message = "Validation exception") })
     public Response patchEmployee(
             @ApiParam(value = "Employee to update", required = true)Employee employee) {
-//            @ApiParam(value = "Id of employee", required = true)int id,
-//            @ApiParam(value = "Name of employee")String name,
-//            @ApiParam(value = "Designation of employee")String designation
-//            ) {
         String message = "{\"Status\": \"Success\"}";
         try{
-            //Employee employee = new Employee(id, name, designation);
             if(!employeeService.updateEmployee(employee)){
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Id not found. Unable to Edit.").build();
             }
         }
         catch (Exception ex){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Unable to Edit.").build();
+        }
+        return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
+    }
+
+    @POST
+    @Path("publish")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ApiOperation(value = "Publish new employee details to Kafka")
+    @ApiResponses(value = { @ApiResponse(code = 405, message = "Invalid input") })
+    public Response publish(
+            @ApiParam(value = "Employee Details to add", required = true) Employee employee) {
+        String message = "{\"Status\": \"Published successfully\"}";
+        try{
+            employeeKafkaService.publish(employee);
+        }
+        catch (Exception ex){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+        return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
+    }
+
+    @GET
+    @Path("consume")
+    @ApiOperation(value = "Consume from Kafka and write to MongoDB")
+    @ApiResponses(value = { @ApiResponse(code = 405, message = "Invalid input") })
+    public Response consume() {
+        String message = "{\"Status\": \"Consumed successfully\"}";
+        try{
+            employeeKafkaService.consume();
+        }
+        catch (Exception ex){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
         return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
     }

@@ -25,7 +25,6 @@ public class EmployeeKafkaService implements AbstractKakfaService<Employee> {
 
     public EmployeeKafkaService(Properties props) throws IOException {
         this.kafkaProps = props;
-        System.out.println("ooooooooooo emp serv kafka const");
         employeeService = new EmployeeService(props);
     }
 
@@ -65,7 +64,8 @@ public class EmployeeKafkaService implements AbstractKakfaService<Employee> {
         System.out.println("Records: "+records);
         for (ConsumerRecord<Integer, Employee> record : records) {
             try{
-            employeeService.createEmployee(record.value());}
+            employeeService.createEmployee(record.value());
+            }
             catch (Exception ex){
                 System.out.println("Exception occurred" + ex.getMessage());
             }
