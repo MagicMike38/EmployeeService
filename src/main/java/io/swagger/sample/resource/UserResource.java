@@ -39,6 +39,8 @@ public class UserResource {
     position = 1)
   public Response createUser(
       @ApiParam(value = "Created user object", required = true) User user) {
+
+    System.out.println("CREATE USERRRR");
     userData.addUser(user);
     return Response.ok().entity("").build();
   }

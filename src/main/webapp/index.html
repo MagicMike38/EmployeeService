@@ -76,6 +76,7 @@
     const ui = SwaggerUIBundle({
       url: apiUrl,
       dom_id: '#swagger-ui',
+      supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
       presets: [
         SwaggerUIBundle.presets.apis,
         SwaggerUIStandalonePreset

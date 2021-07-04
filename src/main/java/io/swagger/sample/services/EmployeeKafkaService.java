@@ -25,6 +25,7 @@ public class EmployeeKafkaService implements AbstractKakfaService<Employee> {
 
     public EmployeeKafkaService(Properties props) throws IOException {
         this.kafkaProps = props;
+        System.out.println("ooooooooooo emp serv kafka const");
         employeeService = new EmployeeService(props);
     }
 

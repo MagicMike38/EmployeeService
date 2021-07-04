@@ -27,7 +27,7 @@ public class Employee {
         this.id = id;
     }
 
-    @XmlElement(name="Name")
+    @XmlElement(name="name")
     public String getName() {
         return name;
     }
@@ -36,7 +36,7 @@ public class Employee {
         this.name = name;
     }
 
-    @XmlElement(name="Designation")
+    @XmlElement(name="designation")
     public String getDesignation() {
         return designation;
     }
