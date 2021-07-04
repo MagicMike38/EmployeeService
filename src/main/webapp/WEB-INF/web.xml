@@ -39,7 +39,7 @@
     </init-param>
     <init-param>
       <param-name>swagger.api.title</param-name>
-      <param-value>Swagger Petstore</param-value>
+      <param-value>Employee CRUD Service</param-value>
     </init-param>
     <init-param>
       <param-name>swagger.api.basepath</param-name>
