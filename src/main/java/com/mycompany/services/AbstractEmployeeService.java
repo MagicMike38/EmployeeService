@@ -1,7 +1,7 @@
-package io.swagger.sample.services;
+package com.mycompany.services;
 
 
-import io.swagger.sample.model.Employee;
+import com.mycompany.model.Employee;
 
 public interface AbstractEmployeeService {
     boolean createEmployee(Employee employee);

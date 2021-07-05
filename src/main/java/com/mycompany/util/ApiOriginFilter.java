@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.swagger.sample.util;
+package com.mycompany.util;
 
 import java.io.IOException;
 

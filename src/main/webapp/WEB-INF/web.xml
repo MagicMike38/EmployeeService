@@ -49,11 +49,11 @@
   </servlet>
   <filter>
     <filter-name>ApiOriginFilter</filter-name>
-    <filter-class>io.swagger.sample.util.ApiOriginFilter</filter-class>
+    <filter-class>com.mycompany.util.ApiOriginFilter</filter-class>
   </filter>
   <servlet>
     <servlet-name>Bootstrap</servlet-name>
-    <servlet-class>io.swagger.sample.Bootstrap</servlet-class>
+    <servlet-class>com.mycompany.Bootstrap</servlet-class>
     <load-on-startup>2</load-on-startup>
   </servlet>
   <filter-mapping>

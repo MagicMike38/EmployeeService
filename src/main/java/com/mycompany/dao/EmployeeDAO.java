@@ -1,4 +1,4 @@
-package io.swagger.sample.dao;
+package com.mycompany.dao;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
@@ -6,7 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import io.swagger.sample.model.Employee;
+import com.mycompany.model.Employee;
 import org.bson.Document;
 
 import java.util.Properties;

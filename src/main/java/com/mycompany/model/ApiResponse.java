@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.swagger.sample.model;
+package com.mycompany.model;
 
 import javax.xml.bind.annotation.XmlTransient;
 
