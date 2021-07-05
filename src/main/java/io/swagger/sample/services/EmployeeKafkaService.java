@@ -1,8 +1,8 @@
-package com.mycompany.services;
+package io.swagger.sample.services;
 
-import com.mycompany.model.Employee;
-import com.mycompany.serializers.EmployeeDeserializer;
-import com.mycompany.serializers.EmployeeSerializer;
+import io.swagger.sample.model.Employee;
+import io.swagger.sample.serializers.EmployeeDeserializer;
+import io.swagger.sample.serializers.EmployeeSerializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

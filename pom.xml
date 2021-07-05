@@ -225,10 +225,7 @@
       <version>3.12.0</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.glassfish.jersey.containers</groupId>
-      <artifactId>jersey-container-grizzly2-http</artifactId>
-    </dependency>
+
 
     <!-- Jersey DI and core-->
     <dependency>
@@ -264,11 +261,28 @@
       <version>${jsonassert.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- Jetty -->
     <dependency>
-      <groupId>org.glassfish.grizzly</groupId>
-      <artifactId>grizzly-http-server</artifactId>
-      <version>3.0.0</version>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-jetty-http</artifactId>
     </dependency>
+
+    <!-- Jersey DI and core-->
+    <dependency>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
+    </dependency>
+
+    <!-- Jetty 11 needs Servlet API 5 -->
+    <!-- java.lang.NoClassDefFoundError: jakarta/servlet/ServletInputStream -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>5.0.0</version>
+    </dependency>
+
+
+
 
   </dependencies>
 </project>

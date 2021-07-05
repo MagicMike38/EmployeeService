@@ -72,16 +72,10 @@
     <orderEntry type="library" name="Maven: org.lz4:lz4-java:1.7.1" level="project" />
     <orderEntry type="library" name="Maven: org.xerial.snappy:snappy-java:1.1.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.12.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.containers:jersey-container-grizzly2-http:3.0.2" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.inject:jakarta.inject-api:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.inject:jersey-hk2:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-common:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.hk2:osgi-resource-locator:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-server:3.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-client:3.0.2" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.validation:jakarta.validation-api:3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.ws.rs:jakarta.ws.rs-api:3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.inject:jersey-hk2:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-locator:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.hk2.external:aopalliance-repackaged:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-api:3.0.1" level="project" />
@@ -97,8 +91,16 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.skyscreamer:jsonassert:1.5.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-http-server:3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-http:3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-framework:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.containers:jersey-container-jetty-http:3.0.2" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.inject:jakarta.inject-api:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:11.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:11.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:11.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:11.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-server:3.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-client:3.0.2" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.validation:jakarta.validation-api:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.ws.rs:jakarta.ws.rs-api:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.servlet:jakarta.servlet-api:5.0.0" level="project" />
   </component>
 </module>

@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.mycompany.resource;
+package io.swagger.sample.resource;
 
 import java.text.SimpleDateFormat;
 

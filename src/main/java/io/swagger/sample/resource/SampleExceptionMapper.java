@@ -14,12 +14,12 @@
  *  limitations under the License.
  */
 
-package com.mycompany.resource;
+package io.swagger.sample.resource;
 
-import com.mycompany.model.ApiResponse;
-import com.mycompany.exception.ApiException;
-import com.mycompany.exception.BadRequestException;
-import com.mycompany.exception.NotFoundException;
+import io.swagger.sample.model.ApiResponse;
+import io.swagger.sample.exception.ApiException;
+import io.swagger.sample.exception.BadRequestException;
+import io.swagger.sample.exception.NotFoundException;
 
 import javax.ws.rs.ext.*;
 import javax.ws.rs.core.Response;

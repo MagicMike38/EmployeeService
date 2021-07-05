@@ -1,4 +1,4 @@
-package com.mycompany.serializers;
+package io.swagger.sample.serializers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.serialization.Serializer;

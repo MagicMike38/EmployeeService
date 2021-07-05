@@ -1,7 +1,10 @@
-package com.mycompany.resource;
+package io.swagger.sample.resource;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
+import io.swagger.sample.MainApp;
+
+import org.eclipse.jetty.server.Server;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -21,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EmployeeResourceTest {
 
-    //private static HttpServer server;
+    private static Server server;
     private static WebTarget target;
 
     private static MongoCollection mongoCollection;
@@ -29,9 +32,9 @@ public class EmployeeResourceTest {
 
     @BeforeAll
     public static void beforeAllTests() throws IOException {
-        //server = MainApp.startHttpServer();
+        server = MainApp.startServer();
         Client c = ClientBuilder.newClient();
-        target = c.target("http://localhost:8002");
+        target = c.target(MainApp.BASE_URI);
 
         String propFileName = "application.properties";
         InputStream inputStream = EmployeeResourceTest.class.getClassLoader().getResourceAsStream(propFileName);
@@ -58,7 +61,7 @@ public class EmployeeResourceTest {
          * An employee is successfully created
          */
         String json = "{\"id\":1000,\"name\":\"mike\",\"designation\":\"dev\"}";
-        Response response = target.path("api/employee")
+        Response response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(json, MediaType.APPLICATION_JSON));
 
@@ -72,12 +75,12 @@ public class EmployeeResourceTest {
          * id is used to create.
          */
         String json = "{\"id\":2001,\"name\":\"mike\",\"designation\":\"dev\"}";
-        Response response = target.path("api/employee")
+        Response response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(json, MediaType.valueOf("application/json")));
 
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
-        response = target.path("api/employee")
+        response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(json, MediaType.valueOf("application/json")));
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
@@ -89,7 +92,7 @@ public class EmployeeResourceTest {
         /**
          * Fetch employee details of a valid employee
          */
-        Response response = target.path("api/employee/1000")
+        Response response = target.path("/employee/1000")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -100,10 +103,10 @@ public class EmployeeResourceTest {
         /**
          * Throw error with appropriate message if the employee id is invalid
          */
-        Response response = target.path("api/employee/1")
+        Response response = target.path("/employee/1")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
-        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }
 
     @Order(3)
@@ -113,7 +116,7 @@ public class EmployeeResourceTest {
          * An employee is successfully edited
          */
         String json = "{\"id\":1000,\"name\":\"mike_edited\",\"designation\":\"dev_edited\"}";
-        Response response = target.path("api/employee")
+        Response response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(json, MediaType.valueOf("application/json")));
 
@@ -126,7 +129,7 @@ public class EmployeeResourceTest {
          * An employee is successfully edited
          */
         String json = "{\"id\":110,\"name\":\"mike_edited\",\"designation\":\"dev_edited\"}";
-        Response response = target.path("api/employee")
+        Response response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(json, MediaType.valueOf("application/json")));
 
@@ -140,7 +143,7 @@ public class EmployeeResourceTest {
          * An employee is successfully patched with new name
          */
         String json = "{\"id\":1000,\"name\":\"mike_patched\"}";
-        Response response = target.path("api/employee")
+        Response response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(json, MediaType.valueOf("application/json")));
 
@@ -154,7 +157,7 @@ public class EmployeeResourceTest {
          * An employee is successfully patched with new designation
          */
         String json = "{\"id\":1000,\"designation\":\"dev_patched\"}";
-        Response response = target.path("api/employee")
+        Response response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(json, MediaType.valueOf("application/json")));
 
@@ -167,7 +170,7 @@ public class EmployeeResourceTest {
          * Invalid id when for patching employee designation
          */
         String json = "{\"id\":1,\"designation\":\"dev_patched\"}";
-        Response response = target.path("api/employee")
+        Response response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(json, MediaType.valueOf("application/json")));
 
@@ -180,7 +183,7 @@ public class EmployeeResourceTest {
          * Invalid id when for patching employee name
          */
         String json = "{\"id\":1,\"designation\":\"dev_patched\"}";
-        Response response = target.path("api/employee")
+        Response response = target.path("/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(json, MediaType.valueOf("application/json")));
 
@@ -193,7 +196,7 @@ public class EmployeeResourceTest {
         /**
          * Successfully delete employee
          */
-        Response response = target.path("api/employee/1000")
+        Response response = target.path("/employee/1000")
                 .request(MediaType.APPLICATION_JSON)
                 .delete();
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -204,7 +207,7 @@ public class EmployeeResourceTest {
         /**
          * Throw error with appropriate message if the employee id is invalid
          */
-        Response response = target.path("api/employee/1")
+        Response response = target.path("/employee/1")
                 .request(MediaType.APPLICATION_JSON)
                 .delete();
         assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
@@ -220,18 +223,18 @@ public class EmployeeResourceTest {
         String json2 = "{\"id\":112,\"name\":\"publish_test2\",\"designation\":\"dev\"}";
         String json3 = "{\"id\":113,\"name\":\"publish_test3\",\"designation\":\"dev\"}";
 
-        Response response = target.path("api/employee/publish")
+        Response response = target.path("/employee/publish")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(json1, MediaType.valueOf("application/json")));
 
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
 
-        response = target.path("api/employee/publish")
+        response = target.path("/employee/publish")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(json2, MediaType.valueOf("application/json")));
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
 
-        response = target.path("api/employee/publish")
+        response = target.path("/employee/publish")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(json3, MediaType.valueOf("application/json")));
 
@@ -241,7 +244,7 @@ public class EmployeeResourceTest {
     @Order(8)
     @Test
     public void testConsume(){
-        Response response = target.path("api/employee/consume")
+        Response response = target.path("/employee/consume")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());

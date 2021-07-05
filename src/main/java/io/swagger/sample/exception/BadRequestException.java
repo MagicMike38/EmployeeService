@@ -14,11 +14,11 @@
  *  limitations under the License.
  */
 
-package com.mycompany.exception;
+package io.swagger.sample.exception;
 
-public class NotFoundException extends ApiException {
+public class BadRequestException extends ApiException{
   private int code;
-  public NotFoundException (int code, String msg) {
+  public BadRequestException (int code, String msg) {
     super(code, msg);
     this.code = code;
   }

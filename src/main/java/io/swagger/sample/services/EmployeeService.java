@@ -1,8 +1,8 @@
-package com.mycompany.services;
+package io.swagger.sample.services;
 
 
-import com.mycompany.model.Employee;
-import com.mycompany.dao.EmployeeDAO;
+import io.swagger.sample.model.Employee;
+import io.swagger.sample.dao.EmployeeDAO;
 
 import java.io.IOException;
 import java.util.Properties;

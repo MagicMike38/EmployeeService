@@ -1,7 +1,7 @@
-package com.mycompany.serializers;
+package io.swagger.sample.serializers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mycompany.model.Employee;
+import io.swagger.sample.model.Employee;
 import org.apache.kafka.common.serialization.Deserializer;
 
 public class EmployeeDeserializer implements Deserializer {

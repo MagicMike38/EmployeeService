@@ -1,23 +1,26 @@
-package com.mycompany.resource;
+package io.swagger.sample.resource;
 
-import com.mycompany.model.Employee;
+import io.swagger.sample.model.Employee;
 import io.swagger.annotations.*;
 import io.swagger.jaxrs.PATCH;
-import com.mycompany.exception.NotFoundException;
-import com.mycompany.services.AbstractEmployeeService;
-import com.mycompany.services.AbstractKakfaService;
-import com.mycompany.services.EmployeeKafkaService;
-import com.mycompany.services.EmployeeService;
+import io.swagger.sample.exception.NotFoundException;
+import io.swagger.sample.services.AbstractEmployeeService;
+import io.swagger.sample.services.AbstractKakfaService;
+import io.swagger.sample.services.EmployeeKafkaService;
+import io.swagger.sample.services.EmployeeService;
+import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("/employee")
 @Api(value = "/employee", tags = "employee")
@@ -45,6 +48,13 @@ public class EmployeeResource {
         employeeService = new EmployeeService(props);
         employeeKafkaService =  new EmployeeKafkaService(props);
     }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Jersey Jetty example.";
+    }
+
     @GET
     @Path("/{employeeId}")
     @ApiOperation(value = "Find Employee by ID",
@@ -72,7 +82,7 @@ public class EmployeeResource {
             @ApiParam(value = "Employee id to delete", required = true)@PathParam("employeeId") int employeeId) {
         String message = "{\"Status\": \"Success\"}";
         if (employeeService.deleteEmployee(employeeId)) {
-            return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.OK).entity(message).type(MediaType.APPLICATION_JSON).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
