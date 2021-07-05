@@ -1,15 +1,13 @@
-package io.swagger.sample.resource;
+package com.mycompany.resource;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.mycompany.model.Employee;
 import io.swagger.annotations.*;
 import io.swagger.jaxrs.PATCH;
-import io.swagger.sample.exception.NotFoundException;
-import io.swagger.sample.model.Employee;
-import io.swagger.sample.services.AbstractEmployeeService;
-import io.swagger.sample.services.AbstractKakfaService;
-import io.swagger.sample.services.EmployeeKafkaService;
-import io.swagger.sample.services.EmployeeService;
+import com.mycompany.exception.NotFoundException;
+import com.mycompany.services.AbstractEmployeeService;
+import com.mycompany.services.AbstractKakfaService;
+import com.mycompany.services.EmployeeKafkaService;
+import com.mycompany.services.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

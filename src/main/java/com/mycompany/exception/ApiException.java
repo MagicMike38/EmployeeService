@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package io.swagger.sample.exception;
+package com.mycompany.exception;
 
 public class ApiException extends Exception{
   private int code;

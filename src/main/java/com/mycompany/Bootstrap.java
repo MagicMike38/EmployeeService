@@ -1,4 +1,4 @@
-package io.swagger.sample;
+package com.mycompany;
 
 import io.swagger.jaxrs.config.SwaggerContextService;
 import io.swagger.models.*;
