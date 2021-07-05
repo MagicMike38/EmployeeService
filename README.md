@@ -19,14 +19,14 @@ This will start Jetty embedded on port 8002.
 Once started, you can navigate to http://localhost:8002/api/swagger.json to view the Swagger Resource Listing.
 This tells you that the server is up and ready to demonstrate Swagger.
 
-![img.png](screenshots/img.png)
+![img.png](docs/screenshots/Swagger-JSON.png)
 
 ### Swagger UI
 The Swagger UI is available at http://localhost:8002
 
-![img_1.png](screenshots/img_1.png)
+![img_1.png](docs/screenshots/SwaggerUI-Overview.png)
 
-![img_2.png](screenshots/img_2.png)
+![img_2.png](docs/screenshots/Swagger-Endpoints.png)
 
 More screenshots in `docs/screenshots` folder.
 

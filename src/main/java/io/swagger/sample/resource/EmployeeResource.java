@@ -72,8 +72,9 @@ public class EmployeeResource {
             @ApiResponse(code = 404, message = "Employee not found") })
     public Response deleteEmployee(
             @ApiParam(value = "Employee id to delete", required = true)@PathParam("employeeId") int employeeId) {
+        String message = "{\"Status\": \"Success\"}";
         if (employeeService.deleteEmployee(employeeId)) {
-            return Response.ok().build();
+            return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
