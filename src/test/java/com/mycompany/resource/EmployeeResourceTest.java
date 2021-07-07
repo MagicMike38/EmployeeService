@@ -8,6 +8,7 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.glassfish.jersey.client.HttpUrlConnectorProvider;
 import org.json.JSONException;
 import org.junit.jupiter.api.*;
 
@@ -71,7 +72,7 @@ public class EmployeeResourceTest {
          * Employee id is unique and a Status code 500 should be returned a duplicate
          * id is used to create.
          */
-        String json = "{\"id\":2001,\"name\":\"mike\",\"designation\":\"dev\"}";
+        String json = "{\"id\":2111,\"name\":\"mike\",\"designation\":\"dev\"}";
         Response response = target.path("api/employee")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(json, MediaType.valueOf("application/json")));
@@ -81,6 +82,11 @@ public class EmployeeResourceTest {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(json, MediaType.valueOf("application/json")));
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+
+        response = target.path("api/employee/2111")
+                .request(MediaType.APPLICATION_JSON)
+                .delete();
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
     @Order(2)
@@ -135,21 +141,21 @@ public class EmployeeResourceTest {
 
     @Order(4)
     @Test
-    public void testSuccessfulPatchEmployeeName(){
+    public void testErrorPutEmployeeName(){
         /**
          * An employee is successfully patched with new name
          */
         String json = "{\"id\":1000,\"name\":\"mike_patched\"}";
         Response response = target.path("api/employee")
-                .request(MediaType.APPLICATION_JSON)
+                .request(MediaType.APPLICATION_JSON).property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true)
                 .put(Entity.entity(json, MediaType.valueOf("application/json")));
 
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }
 
     @Order(5)
     @Test
-    public void testSuccessfulPatchEmployeeDesignation(){
+    public void testErrorPutEmployeeDesignation(){
         /**
          * An employee is successfully patched with new designation
          */
@@ -158,7 +164,7 @@ public class EmployeeResourceTest {
                 .request(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(json, MediaType.valueOf("application/json")));
 
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
     }
 
     @Test

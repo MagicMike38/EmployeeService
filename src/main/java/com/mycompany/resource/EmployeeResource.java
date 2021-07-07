@@ -2,13 +2,12 @@ package com.mycompany.resource;
 
 import com.mongodb.MongoWriteException;
 import com.mycompany.model.Employee;
-import io.swagger.annotations.*;
-import io.swagger.jaxrs.PATCH;
-import com.mycompany.exception.NotFoundException;
 import com.mycompany.services.AbstractEmployeeService;
 import com.mycompany.services.AbstractKakfaService;
 import com.mycompany.services.EmployeeKafkaService;
 import com.mycompany.services.EmployeeService;
+import io.swagger.annotations.*;
+import io.swagger.jaxrs.PATCH;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
