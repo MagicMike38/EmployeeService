@@ -1,5 +1,6 @@
 package com.mycompany.resource;
 
+import com.mongodb.MongoWriteException;
 import com.mycompany.model.Employee;
 import io.swagger.annotations.*;
 import io.swagger.jaxrs.PATCH;
@@ -54,13 +55,18 @@ public class EmployeeResource {
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Employee not found") })
     public Response getEmployeeById(
-            @ApiParam(value = "ID of Employee to return") @PathParam("employeeId") int employeeId)
-            throws NotFoundException {
-        Employee employee = employeeService.getEmployee(employeeId);
-        if (null != employee)
-            return Response.ok().entity(employee).build();
-        else
-            throw new NotFoundException(404, "Employee not found");
+            @ApiParam(value = "ID of Employee to return") @PathParam("employeeId") int employeeId) {
+        try{
+            Employee employee = employeeService.getEmployee(employeeId);
+            if (employee != null) {
+                return Response.status(Response.Status.OK).entity(employee).type(MediaType.APPLICATION_JSON).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        }
+        catch (Exception ex){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+        }
     }
 
     @DELETE
@@ -69,12 +75,17 @@ public class EmployeeResource {
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Employee not found") })
     public Response deleteEmployee(
-            @ApiParam(value = "Employee id to delete", required = true)@PathParam("employeeId") int employeeId) {
+            @ApiParam(value = "Employee id to delete", required = true)@PathParam("employeeId") int employeeId) throws Exception {
         String message = "{\"Status\": \"Success\"}";
-        if (employeeService.deleteEmployee(employeeId)) {
-            return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        try{
+            if (employeeService.deleteEmployee(employeeId)) {
+                return Response.status(Response.Status.OK).entity(message).type(MediaType.APPLICATION_JSON).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        }
+        catch (Exception ex){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
     }
 
@@ -90,8 +101,11 @@ public class EmployeeResource {
         try{
             employeeService.createEmployee(employee);
         }
-        catch (Exception ex){
+        catch(MongoWriteException mex){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Duplicate Id. Unable to Create.").build();
+        }
+        catch (Exception ex){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
         return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
     }
@@ -111,7 +125,7 @@ public class EmployeeResource {
             }
         }
         catch (Exception ex){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Unable to Edit.").build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
         return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
     }
@@ -126,12 +140,12 @@ public class EmployeeResource {
             @ApiParam(value = "Employee to update", required = true)Employee employee) {
         String message = "{\"Status\": \"Success\"}";
         try{
-            if(!employeeService.updateEmployee(employee)){
+            if(!employeeService.patchEmployee(employee)){
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Id not found. Unable to Edit.").build();
             }
         }
         catch (Exception ex){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Unable to Edit.").build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
         }
         return Response.status(Response.Status.CREATED).entity(message).type(MediaType.APPLICATION_JSON).build();
     }
